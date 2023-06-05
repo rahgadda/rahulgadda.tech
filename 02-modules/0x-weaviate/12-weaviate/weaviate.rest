@@ -1,0 +1,17 @@
+### -- Variables
+@Base_URL = https://weaviate.domainname.com/v1
+
+### -- Meta Data
+{{Base_URL}}/meta
+
+### -- Schema
+{{Base_URL}}/schema
+
+### -- Objects
+{{Base_URL}}/objects
+
+### -- Nodes
+{{Base_URL}}/nodes
+
+# ### -- Modules
+# {{Base_URL}}/modules

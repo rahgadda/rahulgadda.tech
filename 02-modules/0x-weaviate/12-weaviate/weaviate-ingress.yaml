@@ -1,0 +1,37 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: certificate
+  namespace: weaviate
+spec:
+  secretName: certificate-secret
+  dnsNames:
+  - "weaviate.domainname.com"
+  issuerRef:
+    name: clusterissuer
+    kind: ClusterIssuer
+    group: cert-manager.io
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: weaviate-ingress
+  namespace: weaviate
+  annotations:
+    kubernetes.io/ingress.class: nginx
+spec:
+  tls:
+    - hosts:
+      - weaviate.domainname.com
+      secretName: certificate-secret
+  rules:
+  - host: weaviate.domainname.com
+    http:
+      paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: weaviate
+              port:
+                number: 80
